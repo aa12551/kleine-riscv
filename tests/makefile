@@ -11,12 +11,12 @@ TEST_BINS  := $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%, $(patsubst $(SRC_DIR)/%
 # ==
 
 # == Tools
-CC := clang --target=riscv32 -march=rv32i
+CC := clang --target=riscv32 -march=rv32g
 LD := lld
 # ==
 
 # == Options
-CFLAGS += -ffreestanding -nostdlib -mno-relax -I$(INC_DIR)
+CFLAGS += -ffreestanding -nostdlib -mno-relax -I$(INC_DIR) -I=/usr/include
 CFLAGS += -static -fuse-ld=$(LD) -Wl,-T,link.ld,--strip-debug
 # ==
 

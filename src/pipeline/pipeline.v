@@ -273,6 +273,7 @@ decode pipeline_decode (
     .alu_function_modifier_out(decode_to_execute_alu_function_modifier),
     .alu_select_a_out(decode_to_execute_alu_select_a),
     .alu_select_b_out(decode_to_execute_alu_select_b),
+    .alu_select_I_M_out(decode_to_execute_alu_select_I_M), // for RV32M
     .cmp_function_out(decode_to_execute_cmp_function),
     .jump_out(decode_to_execute_jump),
     .branch_out(decode_to_execute_branch),
@@ -315,6 +316,7 @@ wire [2:0] decode_to_execute_alu_function;
 wire decode_to_execute_alu_function_modifier;
 wire [1:0] decode_to_execute_alu_select_a;
 wire [1:0] decode_to_execute_alu_select_b;
+wire decode_to_execute_alu_select_I_M; // for RV32M
 wire [2:0] decode_to_execute_cmp_function;
 wire decode_to_execute_jump;
 wire decode_to_execute_branch;
@@ -355,6 +357,7 @@ execute pipeline_execute (
     .alu_function_modifier_in(decode_to_execute_alu_function_modifier),
     .alu_select_a_in(decode_to_execute_alu_select_a),
     .alu_select_b_in(decode_to_execute_alu_select_b),
+    .alu_select_I_M_in(decode_to_execute_alu_select_I_M), // for RV32M
     .cmp_function_in(decode_to_execute_cmp_function),
     .jump_in(decode_to_execute_jump),
     .branch_in(decode_to_execute_branch),

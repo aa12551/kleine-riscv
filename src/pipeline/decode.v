@@ -54,6 +54,7 @@ module decode (
     output reg [1:0] alu_select_a_out,
     output reg [1:0] alu_select_b_out,
     output reg [2:0] cmp_function_out,
+    output reg alu_select_I_M_out, // for RV32M
     output reg jump_out,
     output reg branch_out,
     output reg csr_read_out,
@@ -175,10 +176,11 @@ always @(posedge clk) begin
         csr_address_out <= csr_address;
         csr_readable_out <= csr_readable;
         csr_writeable_out <= csr_writeable;
-        alu_function_out <= ALU_OR;
+        alu_function_out <= ALU_OR; 
         alu_function_modifier_out <= 0;
         alu_select_a_out <= ALU_SEL_IMM;
         alu_select_b_out <= ALU_SEL_IMM;
+        alu_select_I_M_out <= 0;
         write_select_out <= WRITE_SEL_ALU;
         jump_out <= 0;
         branch_out <= 0;
@@ -286,10 +288,13 @@ always @(posedge clk) begin
                 write_select_out <= WRITE_SEL_ALU;
                 rd_address_out <= rd_address;
                 bypass_memory_out <= 1;
-                if (instr[31:25] != 0 && (instr[31:25] != 7'b0100000 || (instr[14:12] != 0 && instr[14:12] != 3'b101))) begin
-                    ecause_out <= 2;
-                    exception_out <= 1;
-                end
+                alu_select_I_M_out <= instr[25]; // for RV32M
+                if(!instr[25]) begin                                     
+		    if (instr[31:25] != 0 && (instr[31:25] != 7'b0100000 || (instr[14:12] != 0 && instr[14:12] != 3'b101))) begin
+		        ecause_out <= 2;
+		    	exception_out <= 1;
+		    end
+		end
             end
             7'b0001111 : begin // FENCE / FENCE.I
                 if (instr[14:13] != 0) begin
@@ -362,6 +367,7 @@ always @(posedge clk) begin
                         csr_read_out <= 1;
                         csr_write_out <= (rs1_address != 0);
                         write_select_out <= WRITE_SEL_CSR;
+                        
                     end
                     3'b101: begin // CSRRWI
                         rd_address_out <= rd_address;

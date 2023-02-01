@@ -17,7 +17,8 @@ module execute (
     input alu_function_modifier_in,
     input [1:0] alu_select_a_in,
     input [1:0] alu_select_b_in,
-    input [2:0] cmp_function_in,
+    input alu_select_I_M_in, // for RV32M
+    input [2:0] cmp_function_in,   
     input jump_in,
     input branch_in,
     input csr_read_in,
@@ -114,6 +115,7 @@ alu ex_alu (
     .input_b(alu_input_b),
     .function_select(alu_function_in),
     .function_modifier(alu_function_modifier_in),
+    .function_select_I_M(alu_select_I_M_in), // for RV32M
     .add_result(alu_addition_out),
     .result(alu_data_out)
 );

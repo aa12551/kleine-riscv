@@ -249,18 +249,19 @@ int main(int argc, const char** argv) {
     parseArguments(argc, argv, &memory_size, &cycle_limit, &latency, &add_exit, &elf);
     if (elf == NULL) {
         return 1;
-    } else {
+    } else {   	
         Core core;
         core.memory_latency = latency;
         uint32_t* ram = core.memory.addRamHandler(0x80000000, memory_size);
+        
         if (!loadFromElfFile(elf, ram, 0x80000000, memory_size)) {
             return 1;
-        }
-        addHandlers(core.memory, add_exit);
-        core.reset();
+        }     
+        addHandlers(core.memory, add_exit); 
+        core.reset();     
         for (int i = 0; i < cycle_limit || cycle_limit == 0; i++) {
             core.cycle();
-        }
+        }       
         std::cerr << "terminated after " << cycle_limit << " cycles" << std::endl;
         delete[] ram;
         return 1;

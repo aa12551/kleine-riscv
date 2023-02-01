@@ -1,6 +1,5 @@
 
 #include "c_test.h"
-
 int isPrime(int n) {
     if (n <= 1) {
         return 0;

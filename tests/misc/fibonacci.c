@@ -14,3 +14,9 @@ void test() {
     ASSERT(3, recursive(15) == 610);
 }
 
+int main(){
+	recursive(5);
+	return 0;
+}
+
+

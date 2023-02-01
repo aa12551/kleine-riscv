@@ -8,7 +8,7 @@
 #include "memory.hpp"
 
 void MagicMemory::handleRequest(Vcore &core) {
-    if (core.ext_valid) {
+    if (core.ext_valid) {  
         uint32_t address = core.ext_address;
         for (auto& handler : mapping) {
             if (address >= handler.start && address < handler.start + handler.length) {
