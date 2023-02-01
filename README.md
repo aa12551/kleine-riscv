@@ -43,3 +43,7 @@ The operation's completion should be signalled by asserting `ready`. After asser
 ## Simulator
 
 The simulator is only very simple. It allows you to set the amount of available memory, the memory latency and the maximum number of cycles to execute (this is used in the test to prevent infinite loops) and initialize the memory using ELF executable files. The simulator will also write every byte written to the address `0x10000000` to stderr (this is a placeholder for a real UART device).
+
+## Some Changes
+
+I add some code to make `RV32M` instruction can be decode and execute correctly. Then I thorough discuss the design of 
