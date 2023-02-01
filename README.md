@@ -47,4 +47,5 @@ The simulator is only very simple. It allows you to set the amount of available 
 ## Some Changes
 
 I add some code to make `RV32M` instruction can be decode and execute correctly. Then I thoroughly discuss the design of this CPU and how to deal with the hazard.
+
 Link : [CA2022 Project : Validate the pipeline design of kleine-riscv and Implement RV32M](https://hackmd.io/@aa12551/Hka3V7Ldo)
